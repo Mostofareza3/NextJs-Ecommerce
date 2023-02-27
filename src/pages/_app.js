@@ -1,4 +1,6 @@
 import "@/styles/globals.scss";
+import "@/styles/base.scss";
+
 import { Provider } from "react-redux";
 import { store } from "./../../store/index";
 import { persistStore } from "redux-persist";

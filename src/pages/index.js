@@ -1,14 +1,15 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.scss";
+import styles from "../styles/Home.module.scss";
+import Header from "./../../components/header/index";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
     <>
-      <h1 style={styles.red}>Hello Next</h1>
+      <Header />
     </>
   );
 }
