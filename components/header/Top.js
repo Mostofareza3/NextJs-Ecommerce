@@ -11,7 +11,7 @@ import {
   RiArrowDropDownFill,
 } from "react-icons/ri";
 
-const Top = () => {
+const Top = ({ country }) => {
   const [loggedIn, setLoggedIn] = React.useState(true);
   const [visible, setVisible] = React.useState(false);
 
@@ -21,11 +21,8 @@ const Top = () => {
         <div></div>
         <ul className={styles.top__list}>
           <li className={styles.li}>
-            <img
-              src="https://www.pngitem.com/pimgs/m/144-1449707_bangladesh-flag-png-bangladesh-national-flag-transparent-png.png"
-              alt=""
-            />
-            <span>Bangladesh / usd</span>
+            <img src={country.flag} alt="" />
+            <span>{country.name} / usd</span>
           </li>
           <li className={styles.li}>
             <MdSecurity />
