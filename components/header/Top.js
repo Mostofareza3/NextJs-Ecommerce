@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import { MdSecurity } from "react-icons/md";
 import { BsSuitHeart } from "react-icons/bs";
@@ -10,10 +10,11 @@ import {
   RiAccountPinCircleLine,
   RiArrowDropDownFill,
 } from "react-icons/ri";
+import { useSession } from "next-auth/react";
 
 const Top = ({ country }) => {
-  const [loggedIn, setLoggedIn] = React.useState(true);
-  const [visible, setVisible] = React.useState(false);
+  const { data: session } = useSession();
+  const [visible, setVisible] = useState(false);
 
   return (
     <div className={styles.top}>
@@ -45,14 +46,11 @@ const Top = ({ country }) => {
             onMouseOver={() => setVisible(true)}
             onMouseLeave={() => setVisible(false)}
           >
-            {loggedIn ? (
+            {session ? (
               <li className={styles.li}>
                 <div className={styles.flex}>
-                  <img
-                    src="https://pixlok.com/wp-content/uploads/2022/02/Profile-Icon-SVG-09856789.png"
-                    alt=""
-                  />
-                  <span>Temp Name</span>
+                  <img src={session.user.image} alt="" />
+                  <span>{session.user.name}</span>
                   <RiArrowDropDownFill />
                 </div>
               </li>
@@ -66,7 +64,7 @@ const Top = ({ country }) => {
               </li>
             )}
 
-            {visible && <UserMenu loggedIn={loggedIn} />}
+            {visible && <UserMenu session={session} />}
           </li>
         </ul>
       </div>

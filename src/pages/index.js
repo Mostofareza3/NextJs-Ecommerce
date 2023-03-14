@@ -10,12 +10,12 @@ import axios from "axios";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ country }) {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   // console.log(session);
   return (
     <>
       <Header country={country} />
-      {session ? "logged in" : "not logged in"}
+      {/* {session ? "logged in" : "not logged in"} */}
       <Footer country={country} />
     </>
   );
