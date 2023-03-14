@@ -11,6 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ country }) {
   const { data: session } = useSession();
+  // console.log(session);
   return (
     <>
       <Header country={country} />
@@ -29,9 +30,9 @@ export async function getServerSideProps() {
     .catch((err) => console.log(err));
   return {
     props: {
-      country: { name: data?.name, flag: data.flag.emojitwo },
+      country: { name: data?.name, flag: data?.flag.emojitwo },
     },
   };
 
-  console.log(data);
+  // console.log(data);
 }
