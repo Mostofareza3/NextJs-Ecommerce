@@ -22,8 +22,8 @@ const Top = ({ country }) => {
         <div></div>
         <ul className={styles.top__list}>
           <li className={styles.li}>
-            <img src={country.flag} alt="" />
-            <span>{country.name} / usd</span>
+            <img src={country?.flag || ""} alt="" />
+            <span>{country?.name || "test country"} / usd</span>
           </li>
           <li className={styles.li}>
             <MdSecurity />
