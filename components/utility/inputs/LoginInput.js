@@ -3,7 +3,7 @@ import { IoKeyOutline } from "react-icons/io5";
 import styles from "./styles.module.scss";
 import { SiMinutemailer } from "react-icons/si";
 import { MdEmail } from "react-icons/md";
-import { useField } from "formik";
+import { ErrorMessage, useField } from "formik";
 
 const LoginInput = ({ icon, placeholder, ...props }) => {
   const [field, meta] = useField(props);
@@ -31,6 +31,14 @@ const LoginInput = ({ icon, placeholder, ...props }) => {
         {...field}
         {...props}
       />
+      {meta.touched && meta.error ? (
+        <div className={styles.error__popup}>
+          <ErrorMessage name={field.name} />
+          <span></span>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

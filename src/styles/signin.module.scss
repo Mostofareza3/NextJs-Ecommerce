@@ -58,5 +58,17 @@
     form {
       margin-top: 2rem;
     }
+    .forgot {
+      color: #666;
+      padding: 1rem;
+      font-size: 14px;
+      height: 40px;
+      width: fit-content;
+
+      &:hover {
+        color: $blue-color;
+        border-bottom: 1px solid $blue-color;
+      }
+    }
   }
 }
