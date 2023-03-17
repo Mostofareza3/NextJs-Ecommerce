@@ -8,15 +8,27 @@ import { Form, Formik } from "formik";
 import LoginInput from "components/utility/inputs/LoginInput";
 import * as Yup from "yup";
 import CircleIconButton from "components/utility/buttons/CircleIconButton";
+import { getProviders, signIn } from "next-auth/react";
 
 const initialValues = {
   login_email: "",
   login_password: "",
+  name: "",
+  email: "",
+  password: "",
+  confirm_password: "",
 };
 
-const SignIn = () => {
+const SignIn = ({ providers }) => {
   const [user, setUser] = useState(initialValues);
-  const { login_email, login_password } = user;
+  const {
+    login_email,
+    login_password,
+    name,
+    email,
+    password,
+    confirm_password,
+  } = user;
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -28,7 +40,20 @@ const SignIn = () => {
     login_password: Yup.string().required("Password is required"),
   });
 
-  console.log(user);
+  const registrationValidation = Yup.object({
+    name: Yup.string()
+      .required("Name is required")
+      .min(3, "Name is too short")
+      .max(20, "Name shuold be less than 20 characters")
+      .matches(/^[aA-zZ\s]+$/, "Name should only contain alphabets"),
+    email: Yup.string().required("Email is required").email("Invalid email"),
+    password: Yup.string()
+      .required("Password is required")
+      .min(6, "Password must be at least 6 characters"),
+    confirm_password: Yup.string()
+      .required("Confirm password is required")
+      .oneOf([Yup.ref("password"), null], "Passwords must match"),
+  });
 
   return (
     <>
@@ -80,6 +105,75 @@ const SignIn = () => {
                 </Form>
               )}
             </Formik>
+            <div className={styles.login__socials}>
+              <span className={styles.or}>Or continue with</span>
+              <div className={styles.login__socials_wrap}>
+                {providers &&
+                  providers.map((provider) => (
+                    <div key={provider.name}>
+                      <button
+                        className={styles.social__btn}
+                        onClick={() => signIn(provider.id)}
+                      >
+                        <img src={`../../icons/${provider.name}.png`} alt="" />
+                        Sign in with {provider.name}
+                      </button>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.login__container}>
+          <div className={styles.login__form}>
+            <h1>Sign up</h1>
+            <p>
+              Get access to one of the best E-shopping services in the world.
+            </p>
+            <Formik
+              enableReinitialize
+              initialValues={{
+                name,
+                email,
+                password,
+                confirm_password,
+              }}
+              validationSchema={registrationValidation}
+            >
+              {(form) => (
+                <Form>
+                  <LoginInput
+                    type="text"
+                    name="name"
+                    icon="user"
+                    placeholder="Full Name"
+                    onChange={handleChange}
+                  />
+                  <LoginInput
+                    type="text"
+                    name="email"
+                    icon="email"
+                    placeholder="Enter Your Email"
+                    onChange={handleChange}
+                  />
+                  <LoginInput
+                    type="password"
+                    name="password"
+                    icon="password"
+                    placeholder="Enter Your Password"
+                    onChange={handleChange}
+                  />
+                  <LoginInput
+                    type="password"
+                    name="confirm_password"
+                    icon="password"
+                    placeholder="Re-Enter Your Password"
+                    onChange={handleChange}
+                  />
+                  <CircleIconButton type="submit" text="sign in" />
+                </Form>
+              )}
+            </Formik>
           </div>
         </div>
       </div>
@@ -89,3 +183,10 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+export const getServerSideProps = async (context) => {
+  const providers = Object.values(await getProviders());
+  return {
+    props: { providers },
+  };
+};
