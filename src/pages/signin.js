@@ -10,6 +10,8 @@ import * as Yup from "yup";
 import CircleIconButton from "components/utility/buttons/CircleIconButton";
 import { getProviders, signIn } from "next-auth/react";
 import axios from "axios";
+import DotLoader from "./../../components/loaders/dotLoader.js/DotLoader";
+import { Router } from "next/router";
 
 const initialValues = {
   login_email: "",
@@ -71,8 +73,12 @@ const SignIn = ({ providers }) => {
       });
       setUser({ ...user, success_message: data.message, error_message: "" });
       setLoading(false);
+
+      setTimeout(() => {
+        setUser(initialValues);
+        Router.push("/");
+      }, 2000);
     } catch (err) {
-      console.log(err);
       setLoading(false);
       setUser({
         ...user,
@@ -84,6 +90,7 @@ const SignIn = ({ providers }) => {
 
   return (
     <>
+      {loading && <DotLoader loading={loading} />}
       <Header />
       <div className={styles.login}>
         <div className={styles.login__container}>
@@ -204,8 +211,16 @@ const SignIn = ({ providers }) => {
                 </Form>
               )}
             </Formik>
-            <div>{error_message && <span>{error_message}</span>}</div>
-            <div>{success_message && <span>{success_message}</span>}</div>
+            <div>
+              {error_message && (
+                <span className={styles.error}>{error_message}</span>
+              )}
+            </div>
+            <div>
+              {success_message && (
+                <span className={styles.success}>{success_message}</span>
+              )}
+            </div>
           </div>
         </div>
       </div>
