@@ -11,11 +11,12 @@ import CircleIconButton from "components/utility/buttons/CircleIconButton";
 import { getProviders, signIn } from "next-auth/react";
 import axios from "axios";
 import DotLoader from "./../../components/loaders/dotLoader.js/DotLoader";
-import { Router } from "next/router";
+import Router from "next/router";
 
 const initialValues = {
   login_email: "",
   login_password: "",
+  login_error: "",
   name: "",
   email: "",
   password: "",
@@ -30,6 +31,7 @@ const SignIn = ({ providers }) => {
   const {
     login_email,
     login_password,
+    login_error,
     name,
     email,
     password,
@@ -74,10 +76,16 @@ const SignIn = ({ providers }) => {
       setUser({ ...user, success_message: data.message, error_message: "" });
       setLoading(false);
 
-      setTimeout(() => {
+      setTimeout(async () => {
         setUser(initialValues);
+        let options = {
+          redirect: false,
+          email,
+          password,
+        };
+        const res = await signIn("credentials", options);
         Router.push("/");
-      }, 2000);
+      }, 1000);
     } catch (err) {
       setLoading(false);
       setUser({
@@ -85,6 +93,28 @@ const SignIn = ({ providers }) => {
         success_message: "",
         error_message: err.response.data.message,
       });
+    }
+  };
+
+  const signInHandler = async () => {
+    setLoading(true);
+    let options = {
+      redirect: false,
+      email: login_email,
+      password: login_password,
+    };
+    const res = await signIn("credentials", options);
+    setUser({ ...user, success_message: res.message, error_message: "" });
+    setLoading(false);
+    if (res?.error) {
+      setLoading(false);
+      setUser({
+        ...user,
+        success_message: "",
+        login_error: res.error,
+      });
+    } else {
+      return Router.push("/");
     }
   };
 
@@ -113,8 +143,12 @@ const SignIn = ({ providers }) => {
               initialValues={{
                 login_email,
                 login_password,
+                login_error,
               }}
               validationSchema={loginValidation}
+              onSubmit={() => {
+                signInHandler();
+              }}
             >
               {(form) => (
                 <Form>
@@ -133,6 +167,9 @@ const SignIn = ({ providers }) => {
                     placeholder="Enter Your Password"
                   />
                   <CircleIconButton type="submit" text="sign in" />
+                  {login_error && (
+                    <span className={styles.error}>{login_error}</span>
+                  )}
                   <div className={styles.forgot}>
                     <Link href="/forget">Forgot Password?</Link>
                   </div>
