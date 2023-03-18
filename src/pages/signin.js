@@ -9,6 +9,7 @@ import LoginInput from "components/utility/inputs/LoginInput";
 import * as Yup from "yup";
 import CircleIconButton from "components/utility/buttons/CircleIconButton";
 import { getProviders, signIn } from "next-auth/react";
+import axios from "axios";
 
 const initialValues = {
   login_email: "",
@@ -17,10 +18,13 @@ const initialValues = {
   email: "",
   password: "",
   confirm_password: "",
+  success_message: "",
+  error_message: "",
 };
 
 const SignIn = ({ providers }) => {
   const [user, setUser] = useState(initialValues);
+  const [loading, setLoading] = useState(false);
   const {
     login_email,
     login_password,
@@ -28,6 +32,8 @@ const SignIn = ({ providers }) => {
     email,
     password,
     confirm_password,
+    success_message,
+    error_message,
   } = user;
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -54,6 +60,27 @@ const SignIn = ({ providers }) => {
       .required("Confirm password is required")
       .oneOf([Yup.ref("password"), null], "Passwords must match"),
   });
+
+  const signUpHandler = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.post("/api/auth/signup", {
+        name,
+        email,
+        password,
+      });
+      setUser({ ...user, success_message: data.message, error_message: "" });
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+      setUser({
+        ...user,
+        success_message: "",
+        error_message: err.response.data.message,
+      });
+    }
+  };
 
   return (
     <>
@@ -139,6 +166,9 @@ const SignIn = ({ providers }) => {
                 confirm_password,
               }}
               validationSchema={registrationValidation}
+              onSubmit={() => {
+                signUpHandler();
+              }}
             >
               {(form) => (
                 <Form>
@@ -174,6 +204,8 @@ const SignIn = ({ providers }) => {
                 </Form>
               )}
             </Formik>
+            <div>{error_message && <span>{error_message}</span>}</div>
+            <div>{success_message && <span>{success_message}</span>}</div>
           </div>
         </div>
       </div>

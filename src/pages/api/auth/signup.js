@@ -55,7 +55,11 @@ handler.post(async (req, res) => {
 
     sendEmail(email, url, "", "Activate your account");
 
-    res.status(201).json({ message: "User created successfully!" });
+    await db.disconnectDb();
+    res.status(201).json({
+      message:
+        "Registered successfully! Please activate your email to start shopping.",
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
