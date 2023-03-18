@@ -4,6 +4,7 @@ import { validateEmail } from "utils/validation";
 import bcrypt from "bcrypt";
 import db from "../../../../utils/db";
 import { getActivationToken } from "utils/tokens";
+import sendEmail from "utils/sendEmail";
 
 const handler = nc();
 
@@ -51,6 +52,8 @@ handler.post(async (req, res) => {
     });
 
     const url = `${process.env.BASE_URL}/activate/${activationToken}`;
+
+    sendEmail(email, url, "", "Activate your account");
 
     res.status(201).json({ message: "User created successfully!" });
   } catch (err) {
