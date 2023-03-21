@@ -23,7 +23,7 @@ export default function MainSwiper() {
         }}
         autoplay={{
           delay: 2500,
-          disableOnInteraction: false,
+          disableOnInteraction: true,
         }}
         navigation={true}
         modules={[Pagination, Navigation, Autoplay]}

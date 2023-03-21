@@ -180,7 +180,7 @@ export const menuArray = [
     images: [],
   },
   {
-    name: "Gaming, Video Games",
+    name: "Gaming",
     link: "",
     subMenu: [
       {
@@ -192,7 +192,7 @@ export const menuArray = [
     images: [],
   },
   {
-    name: "Phones & Telecommunications",
+    name: "Phones & Tech ",
     link: "",
     subMenu: [
       {
