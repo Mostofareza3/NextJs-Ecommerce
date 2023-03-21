@@ -46,30 +46,22 @@ export default function User() {
         <ul className={styles.user__links}>
           <li>
             <Link href="/profile">
-             
-                <IoSettingsOutline />
-              
+              <IoSettingsOutline />
             </Link>
           </li>
           <li>
             <Link href="">
-            
-                <HiOutlineClipboardList />
-             
+              <HiOutlineClipboardList />
             </Link>
           </li>
           <li>
             <Link href="">
-             
-                <AiOutlineMessage />
-            
+              <AiOutlineMessage />
             </Link>
           </li>
           <li>
             <Link href="">
-             
-                <BsHeart />
-             
+              <BsHeart />
             </Link>
           </li>
         </ul>
@@ -81,7 +73,6 @@ export default function User() {
           />
           <Swiper
             effect={"cards"}
-            
             grabCursor={true}
             navigation={true}
             modules={[EffectCards, Navigation]}

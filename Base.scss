@@ -1,10 +1,12 @@
 $blue-color: #2f82ff;
+$blue-color-lite: #2f82ffcd;
 $dark-blue-color: #1a28f1dc;
 $yellow-color: #fac80f;
 $violet-color: #5a31f4;
 $green-color: #3c811f;
 $redish-color: #f15f6f;
 $gray-color: #f8f8f8;
+$grey-color: #f8f8f8;
 $light-error-color: #fd010169;
 $error-color: #ed4337;
 $error-secondary-color: #f02f2fd8;
@@ -84,7 +86,8 @@ $cubic-bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .mainSwiper,
-.offers_swiper {
+.offers_swiper,
+.user__swiper {
   .swiper-slide img {
     height: 300px !important;
     border-radius: 10px !important;
@@ -201,5 +204,22 @@ $cubic-bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
   .swiper-pagination {
     display: none;
+  }
+}
+
+.user__swiper {
+  position: relative;
+  margin-left: 2rem;
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    img {
+      height: 240px !important;
+    }
   }
 }

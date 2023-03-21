@@ -1,3 +1,4 @@
+import Header from "./Header";
 import Menu from "./Menu";
 import Offers from "./offers";
 import styles from "./styles.module.scss";
@@ -6,7 +7,7 @@ import User from "./User";
 const HomeMain = () => {
   return (
     <div className={styles.main}>
-      <div className={styles.header}>header</div>
+      <Header />
       <Menu />
       <MainSwiper />
       <Offers />
