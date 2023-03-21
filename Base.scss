@@ -87,6 +87,7 @@ $cubic-bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
 .mainSwiper,
 .offers_swiper,
+.flashDeals__swiper,
 .user__swiper {
   .swiper-slide img {
     height: 300px !important;
@@ -220,6 +221,24 @@ $cubic-bezier: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     color: #fff;
     img {
       height: 240px !important;
+    }
+  }
+}
+.flashDeals__swiper {
+  .swiper-slide {
+    img {
+      border-radius: 0 !important;
+      height: 320px !important;
+    }
+  }
+  .swiper-button-next,
+  .swiper-button-prev {
+    top: 35%;
+  }
+  @media (max-width: 450px) {
+    .swiper-button-next,
+    .swiper-button-prev {
+      display: grid !important;
     }
   }
 }

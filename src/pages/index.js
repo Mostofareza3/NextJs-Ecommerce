@@ -7,6 +7,7 @@ import Footer from "./../../components/footer/index";
 import { useSession, signIn, signOut } from "next-auth/react";
 import axios from "axios";
 import HomeMain from "components/home/main/HomeMain";
+import FlashDeals from "components/home/flashDeals";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +20,7 @@ export default function Home({ country }) {
       <div className={styles.home}>
         <div className={styles.container}>
           <HomeMain />
+          <FlashDeals />
         </div>
       </div>
       <Footer country={country} />
