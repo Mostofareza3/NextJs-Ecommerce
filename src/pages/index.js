@@ -30,7 +30,10 @@ export async function getServerSideProps() {
     .catch((err) => console.log(err));
   return {
     props: {
-      country: { name: data?.name, flag: data?.flag?.emojitwo },
+      country: {
+        name: data?.name || "Bangladesh",
+        flag: data?.flag?.emojitwo || "🇧🇩",
+      },
     },
   };
 
