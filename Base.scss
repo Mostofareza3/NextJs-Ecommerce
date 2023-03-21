@@ -43,11 +43,13 @@ $error-color: #ed4337;
 
 .swiper {
   width: 100%;
+  transition: 0.2s;
   height: 100%;
   &:hover {
     .swiper-button-next,
     .swiper-button-prev {
       display: grid !important;
+      transition: 0.2s;
     }
   }
 }
@@ -76,7 +78,8 @@ $error-color: #ed4337;
   cursor: pointer;
 }
 
-.mainSwiper {
+.mainSwiper,
+.offers_swiper {
   .swiper-slide img {
     height: 300px !important;
     border-radius: 10px !important;
@@ -88,7 +91,7 @@ $error-color: #ed4337;
     border-radius: 5px !important;
   }
   .swiper-pagination-bullet-active {
-    background: $blue-color !important;
+    background: #fff !important;
     width: 10px !important;
   }
   .swiper-button-next,
@@ -101,11 +104,53 @@ $error-color: #ed4337;
     background: rgba(102, 102, 102, 0.407) !important;
     display: none !important;
     place-items: center;
+    transition: 0.2s;
   }
   .swiper-button-prev {
     left: -13px !important;
   }
   .swiper-button-next {
     right: -13px !important;
+  }
+}
+
+.offers {
+}
+
+.offers_swiper {
+  max-width: 550px;
+  transform: translateX(33%);
+  .swiper-pagination {
+    display: none !important;
+  }
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    width: 150px !important;
+    height: 90% !important;
+    border-radius: 10px !important;
+    margin-top: 0.6rem !important;
+    &:hover {
+      transform: scale(1.1);
+      transition: 0.2s;
+    }
+    img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      transform: scaleY(1.35);
+      // display: none !important;
+    }
+  }
+  span {
+    position: absolute;
+    color: #fff;
+    &:first-of-type {
+      bottom: 10px;
+      width: 90px;
+      height: 25px;
+      border-radius: 50px;
+      background: yellow;
+    }
   }
 }
