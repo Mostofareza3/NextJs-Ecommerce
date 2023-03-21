@@ -6,6 +6,7 @@ import Header from "./../../components/header/index";
 import Footer from "./../../components/footer/index";
 import { useSession, signIn, signOut } from "next-auth/react";
 import axios from "axios";
+import HomeMain from "components/home/main/HomeMain";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +16,11 @@ export default function Home({ country }) {
   return (
     <>
       <Header country={country} />
-
+      <div className={styles.home}>
+        <div className={styles.container}>
+          <HomeMain />
+        </div>
+      </div>
       <Footer country={country} />
     </>
   );

@@ -8,6 +8,12 @@ $gray-color: #f8f8f8;
 $light-error-color: #fd010169;
 $error-color: #ed4337;
 
+.container {
+  max-width: 94vw;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
 .btn_primary {
   display: flex;
   align-items: center;
